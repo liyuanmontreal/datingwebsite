@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="" lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<!--  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">-->
+<!--  has to in this order to make js functional-->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+  <script>
+    $(document).ready(function() {
+      $('select').material_select();
+    });
+  </script>
+<!--  <link rel="stylesheet" th:href="@{/style.css}">-->
+
+  <title>Edit | Profile </title>
+
+</head>
+<nav  th:replace="fragments/header :: header"></nav>
+
+
+<div class="container">
+  Logged Client : <span sec:authentication="name">Client_Name</span>
+
+  <form method="POST" th:action="@{/saveEditProfile}" th:object="${profile}">
+
+    <input type="hidden" th:field ="*{id}"/>
+
+    <h3>Client Preference</h3>
+
+    <div class="row">
+        <div class="col s12">
+          <div class="row">
+            <div class="input-field col s6">
+              <input id="agePrefer" name="agePrefer" th:field="*{preferAge}" type="text"
+                   class="form-control required number">
+              <label for="agePrefer">Prefer Age *</label>
+              <div class="text-danger" th:if="${#fields.hasErrors('preferAge')}" th:errors="*{preferAge}">error</div>
+            </div>
+            <div class="input-field col s6">
+              <input id="heightPrefer" name="heightPrefer" th:field="*{preferHeight}" type="text"
+                     class="form-control required">
+              <label for="heightPrefer">Prefer Height *</label>
+              <div class="text-danger" th:if="${#fields.hasErrors('preferHeight')}" th:errors="*{preferHeight}">error</div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="input-field col s12">
+            <label for="cityPrefer">Prefer City *</label>
+            <input id="cityPrefer" name="cityPrefer" th:field="*{preferCity}" type="text"
+                   class="form-control required">
+            <div class="text-danger" th:if="${#fields.hasErrors('preferCity')}" th:errors="*{preferCity}">error</div>
+          </div>
+          </div>
+          <div class="row">
+              <div class="input-field col s6">
+                <select th:field="*{preferEyeColor}">
+                  <option th:value="BLACK">Black</option>
+                  <option th:value="BLUE">Blue</option>
+                  <option th:value="BROWN">Brown</option>
+                  <option th:value="GREEN">Green</option>
+                </select>
+                <label >Prefer Eye Color</label>
+              </div>
+
+              <div class="input-field col s6">
+                <select th:field="*{preferHairColor}">
+                  <option th:value="BLACK">Black</option>
+                  <option th:value="RED">Red</option>
+                  <option th:value="BROWN">Brown</option>
+                  <option th:value="BLONDE">Blonde</option>
+                  <option th:value="OTHER">Other</option>
+                </select>
+                <label >Prefer Hair Color</label>
+              </div>
+          </div>
+        </div>
+    </div>
+
+    <h3>Profile -- Personal Information</h3>
+    <div class="row">
+      <div class="col s12">
+            <div class="row">
+              <div class="col s6">
+                <div th:if="${profile.image == null}">
+                  <img  style="height:300px" th:href="@{/profile(id=${profile.id})}" th:src="${profile.photos}"  class="card-img-top" alt="..."   width="100">
+                </div>
+                <div th:if="${profile.image != null}">
+                  <img th:src="@{${'/showImage/'+ profile.image.id}}"  class="card img-fluid" width="100" alt="image"/>
+                </div>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s6">
+                <label for="firstname-2">First name *</label>
+                <input id="firstname-2" name="firstname" th:field="*{firstName}" type="text"
+                       class="form-control required">
+              </div>
+              <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">error</div>
+
+              <div class="input-field col s6">
+                <label for="surname-2">Last name *</label>
+                <input id="surname-2" name="surname" th:field="*{lastName}" type="text"
+                       class="form-control required">
+              </div>
+              <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">error</div>
+            </div>
+
+
+
+
+        <div class="row">
+              <div class="input-field col s6">
+                <select th:field="*{gender}">
+                  <option th:value="MALE">Male</option>
+                  <option th:value="FEMALE">Female</option>
+                </select>
+                <label >Choose your gender</label>
+                <div class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">error</div>
+              </div>
+
+              <div class="input-field col s6">
+                <label for="city-2">City *</label>
+                <input id="city-2" name="city" th:field="*{city}" type="text"
+                       class="form-control">
+                <div class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">error</div>
+              </div>
+        </div>
+
+          <div class="row">
+            <div class="input-field col s6">
+              <label for="age-2">Age *</label>
+              <input id="age-2" name="age-2" type="text" th:field="*{age}"
+                     class="form-control required number">
+              <div class="text-danger" th:if="${#fields.hasErrors('age')}" th:errors="*{age}">error</div>
+            </div>
+
+            <div class="input-field col s6">
+              <label for="height">Height *</label>
+              <input id="height" name="height" th:field="*{height}" type="text"
+                     class="form-control">
+              <div class="text-danger" th:if="${#fields.hasErrors('height')}" th:errors="*{height}">error</div>
+            </div>
+          </div>
+
+        <div class="row">
+            <div class="input-field col s6">
+              <label for="income">Income</label>
+              <input id="income" name="income" type="text" th:field="*{income}"
+                     class="form-control required number">
+            </div>
+
+            <div class="input-field col s6">
+              <label for="job">Professional</label>
+              <input id="job" name="job" type="text" th:field="*{job}"
+                     class="form-control">
+            </div>
+        </div>
+
+    <div class="row">
+          <div class="input-field col s6">
+            <select th:field="*{eyeColor}">
+              <option th:value="BLACK">Black</option>
+              <option th:value="BLUE">Blue</option>
+              <option th:value="BROWN">Brown</option>
+              <option th:value="GREEN">Green</option>
+            </select>
+            <label >Prefer Eye Color</label>
+          </div>
+
+          <div class="input-field col s6">
+
+            <select th:field="*{hairColor}">
+              <option th:value="BLACK">Black</option>
+              <option th:value="RED">Red</option>
+              <option th:value="BROWN">Brown</option>
+              <option th:value="BLONDE">Blonde</option>
+              <option th:value="OTHER">Other</option>
+            </select>
+            <label >Prefer Hair Color</label>
+          </div>
+    </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+              <label for="hobby">Hobby</label>
+              <input id="hobby" name="hobby" th:field="*{hobby}" type="text"
+                     class="form-control">
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="input-field col s12">
+              <label for="intro">Intro Yourself</label>
+              <textarea id="intro" name="intro" th:field="*{introYourself}" ></textarea>
+            </div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="row">
+    <input type="submit" name="submit" class="btn-dark btn" value="SAVE">
+    </div>
+  </form>
+</div>
+
+<section>
+  <div th:replace="fragments/footer :: footer"></div>
+<!--  <footer class="text-white" style="background-color: #FF8A80;">-->
+<!--    <div class="container">-->
+<!--      <div class="row">-->
+<!--        <div class="col l6 s12">-->
+<!--          <h5 class="white-text">Contact Us</h5>-->
+<!--          <p class="grey-text text-lighten-4">-->
+<!--          <div class="row">-->
+<!--            Tel: (+00) 1234 5678   |-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            Email: info@email.com   |-->
+<!--          </div>-->
+<!--          <div class="row">-->
+<!--            Address: 203 Street, Montreal, QC, Canada   H1H 1H1-->
+<!--          </div>-->
+
+<!--          </p>-->
+<!--        </div>-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--    <div class="footer-copyright">-->
+<!--      <div class="container">-->
+<!--        All rights reserved. | FSD-003-TEAM 2-->
+
+<!--      </div>-->
+<!--    </div>-->
+<!--  </footer>-->
+</section>
+</body>
+
+</html>

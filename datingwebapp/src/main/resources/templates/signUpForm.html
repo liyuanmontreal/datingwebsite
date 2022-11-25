@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Sign Up - CodeJava</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <!--
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />-->
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script type="text/javascript" src="/webjars/bootstrap/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div th:replace="fragments/header :: headerByDefault"></div>
+
+<div class="container text-center">
+
+        <h1>Client Registration - Sign Up</h1>
+    </div>
+    <form th:action="@{/process_register}" th:object="${client}"
+          method="post" style="max-width: 600px; margin: 0 auto;">
+
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">E-mail: </label>
+                <div class="col-8">
+                    <input type="email" th:field="*{email}" class="form-control"/>
+                </div>
+                <div class="red-text text-accent-4" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">error</div>
+            </div>
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Password: </label>
+                <div class="col-8">
+                    <input type="password" th:field="*{password}" class="form-control"/>
+                </div>
+                <div class="red-text text-accent-4" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">error</div>
+            </div>
+
+
+
+            <div class="form-group row">
+                <label class="col-4 col-form-label">Confirm Password: </label>
+                <div class="col-8">
+                    <input type="password" th:field="*{confirmPassword}" class="form-control"/>
+                </div>
+                <div class="red-text text-accent-4" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">error</div>
+            </div>
+
+            <div>
+                <button type="submit" class="btn btn-success">Sign Up</button>
+                <span class="text-black-50">Have an account? click Sign In !</span>
+                <a th:href="@{/login}" class="btn z-depth-0 btn-primary" >Sign In</a>
+            </div>
+
+    </form>
+</div>
+<div th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html xmlns:th="https://www.thymeleaf.org" xmlns:sec="" lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="stylesheet" th:href="@{/style.css}">
+    <!--<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-0evHe/X+R7YkIZDRvuzKMRqM+OrBnVFBL6DOitfPri4tjfHxaWutUpFmBp4vmVor" crossorigin="anonymous">
+   --> <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <title>Home | Dating </title>
+</head>
+
+<body class="grey lighten-4">
+<nav  th:replace="fragments/header :: header"></nav>
+
+
+<!--<nav  th:replace="fragment/header_auth :: header"></nav>-->
+<!--<nav class="white z-depth-0" sec:authorize="isAuthenticated()" th:replace="fragment/header_auth :: header"></nav> -->
+<div class="container">
+    <div class="alert alert-secondary" role="alert">
+        Notification List
+    </div>
+    <ul class="list-group" >
+        <div class="col-sm clo-3" th:each="notification: ${notificationList}">
+            <li class="list-group-item">
+
+                <a th:href="@{/profile(id=${notification.sender.id})}" class="large-text" th:text="${notification.sender.profile.firstName}"></a>
+                <p th:if="${notification.type == 'like'}">like your profile</p>
+                <p th:if="${notification.type == 'msg'}">send you a new message</p>
+                <p th:text = ${notification.content}></p>
+
+            </li>
+
+
+        </div>
+    </ul>
+</div>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>profile saved</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name = "viewport" content = "width = device-width, initial-scale = 1">
+    <link rel = "stylesheet"
+          href = "https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel = "stylesheet"
+          href = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css">
+    <script type = "text/javascript"
+            src = "https://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js">
+    </script>
+</head>
+<body>
+
+<div th:replace="fragments/header :: header"></div>
+
+    <div class="container text-center">
+        <h4>You made it! Now please upload your photo</h4>
+            <div class="row">
+                <form class = "col s12" th:action="@{/showImage}" method="POST" enctype="multipart/form-data" th:object="${photo}"}>
+                    <div class = "row">
+                        <div class="input-field col s6">
+                            <input id="profileId" name="profileId" th:field="*{profile.id}" type="hidden">
+                        </div>
+                    </div>
+                    <div class = "row">
+                        <div class="input-field col s6">
+                            <label for="photoName">Photo Name</label>
+                            <input id="photoName" name="photoName" th:field="*{name}" type="text"
+                                   class="form-control required">
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col s6">
+                            <label>Your Photo</label>
+                            <div class = "file-field input-field">
+                                <div class = "btn">
+                                    <span>Browse</span>
+                                    <input type = "file" th:field="*{image}"/>
+                                </div>
+
+                                <div class = "file-path-wrapper">
+                                    <input class = "file-path validate" type = "text"
+                                           placeholder = "Upload file"/>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <input type="submit" name="submit" class="btn-dark btn" value="SAVE">
+                    </div>
+                </form>
+            </div>
+    </div>
+
+<div th:replace="fragments/footer :: footer"></div>
+
+</body>
+</html>

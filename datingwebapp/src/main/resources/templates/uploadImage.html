@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="/webjars/bootstrap/css/bootstrap.min.css" />
+    <script type="text/javascript" src="/webjars/jquery/jquery.min.js"></script>
+    <script>
+        $(document).on('change', '.custom-file-input', function (event) {
+            $(this).next('.custom-file-label').html(event.target.files[0].name);
+        })
+    </script>
+    <title>Upload photo</title>
+</head>
+<body>
+<nav  class="navbar navbar-expand-lg text-white navbar-light" style=" height:70px;background-color: #FF8A80;">
+    <div class="container-fluid" >
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/home}">Home </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#footer">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/notification}">Notification</a>
+            </li>
+            <li cclass="nav-item">
+                <a class="nav-link" th:href="@{/search}">Search</a>
+            </li>
+            <li class="right hide-on-med-and-down">
+                <form th:action="@{/logout}" method="post"><input type="submit" value="Sign Out" /></form>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+<div class="container">
+<div class="card">
+    <div class="card-header">
+        <p class="h4 mb-2 text-center">Add Photos</p>
+    </div>
+    <div class="card-body">
+        <form class="text-center border border-light p-5" th:action="@{/showImage}" method="POST" enctype="multipart/form-data" th:object="${photo}"}>
+
+            <!-- Name -->
+            <input type="text" name="name" id="name" th:field="*{name}" class="form-control mb-4"
+                   placeholder="Product Name">
+
+            <!-- Price -->
+<!--            <input type="text" name="price" id="price" class="form-control mb-4"-->
+<!--                   placeholder="Product Price">-->
+
+<!--            &lt;!&ndash; Description &ndash;&gt;-->
+<!--            <textarea class="form-control mb-4" id="desc" name="desc"-->
+<!--                      placeholder="Product Description">Product Description-->
+<!--                                 </textarea>-->
+
+            <div class="custom-file mb-4">
+                <input type="file" class="custom-file-input" id="customFile" name="filename" th:field="*{image}">
+                <label class="custom-file-label" for="customFile">Choose file</label>
+            </div>
+            <!-- Sign in button -->
+            <button class="btn btn-info btn-block" type="submit">add</button>
+        </form>
+    </div>
+</div>
+
+</form>
+</div>
+</body>
+</html>

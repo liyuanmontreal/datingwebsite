@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Wizard</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link th:rel="stylesheet" th:href="@{/webjars/bootstrap/4.0.0-2/css/bootstrap.min.css} "/>
+    <link th:rel="stylesheet" th:href="@{/assets/jquery-steps/jquery.steps.css} "/>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+
+
+</head>
+<body>
+
+<nav  class="navbar navbar-expand-lg text-white navbar-light" style=" height:70px;background-color: #FF8A80;">
+    <div class="container-fluid" >
+        <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item active">
+                <a class="nav-link" th:href="@{/home}">Home </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#footer">Contact Us</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/notification}">Notification</a>
+            </li>
+            <li cclass="nav-item">
+                <a class="nav-link" th:href="@{/search}">Search</a>
+            </li>
+            <li class="nav-item hide-on-med-and-down">
+                <form th:action="@{/logout}" method="post"><input type="submit" value="Sign Out" /></form>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+Logged Client : <span sec:authentication="name">Client_Name</span>
+<!--    Roles: <span sec:authentication="principal.authorities">[ROLE_USER, ROLE_ADMIN]</span>-->
+    <div class="container">
+        <div class="row">
+             <div class="col">
+            <h2 class="mt-5">Create Profile and Preference</h2>
+
+            <form id="example-advanced-form" th:action="@{/saved}" method="POST" th:object="${profile}">
+
+                <h3>Preference</h3>
+                <fieldset>
+                    <legend>Client Preference</legend>
+
+                    <div class="row">
+                        <div class="col-5">
+                            <div class="form-group">
+                                <label for="agePrefer">Prefer Age *</label>
+                                <input id="agePrefer" name="agePrefer" th:field="*{preferAge}" type="text"
+                                       class="form-control required">
+                                <div class="text-danger" th:if="${#fields.hasErrors('preferAge')}" th:errors="*{preferAge}">error</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="cityPrefer">Prefer City *</label>
+                                <input id="cityPrefer" name="cityPrefer" th:field="*{preferCity}" type="text"
+                                       class="form-control required">
+                                <div class="text-danger" th:if="${#fields.hasErrors('preferCity')}" th:errors="*{preferCity}">error</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label for="heightPrefer">Prefer Height *</label>
+                                <input id="heightPrefer" name="heightPrefer" th:field="*{preferHeight}" type="text"
+                                       class="form-control required">
+                                <div class="text-danger" th:if="${#fields.hasErrors('preferHeight')}" th:errors="*{preferHeight}">error</div>
+                            </div>
+
+                            <div class="form-group">
+                                <label >Prefer Eye Color</label>
+                                <select th:field="*{preferEyeColor}" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                    <option th:value="BLACK">Black</option>
+                                    <option th:value="BLUE">Blue</option>
+                                    <option th:value="BROWN">Brown</option>
+                                    <option th:value="GREEN">Green</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group">
+                                <label >Prefer Hair Color</label>
+                                <select th:field="*{preferHairColor}" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                    <option th:value="BLACK">Black</option>
+                                    <option th:value="RED">Red</option>
+                                    <option th:value="BROWN">Brown</option>
+                                    <option th:value="BLONDE">Blonde</option>
+                                    <option th:value="OTHER">Other</option>
+                                </select>
+                            </div>
+
+                        </div>
+                    </div>
+                    <p>(*) Mandatory</p>
+                </fieldset>
+
+                <h3>Profile</h3>
+                <fieldset>
+                    <legend>Personal Information</legend>
+
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="col-md-6">
+                                <label for="firstname-2">First name *</label>
+                                <input id="firstname-2" name="firstname" th:field="*{firstName}" type="text"
+                                       class="form-control required">
+                            </div>
+                            <div class="text-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">error</div>
+
+                            <div class="col-md-6">
+                                <label for="surname-2">Last name *</label>
+                                <input id="surname-2" name="surname" th:field="*{lastName}" type="text"
+                                       class="form-control required">
+                            </div>
+                            <div class="text-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">error</div>
+
+                            <div class="form-group">
+                                <label >Choose your gender</label>
+                                <select th:field="*{gender}" class="form-select form-select-sm" aria-label=".form-select-sm example">
+                                    <option th:value="MALE">Male</option>
+                                    <option th:value="FEMALE">Female</option>
+                                </select>
+                                <div class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}">error</div>
+                            </div>
+                            <div class="col-md-6">
+                                <label for="city-2">City *</label>
+                                <input id="city-2" name="city" th:field="*{city}" type="text"
+                                       class="form-control">
+                                <div class="text-danger" th:if="${#fields.hasErrors('city')}" th:errors="*{city}">error</div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="age-2">Age *</label>
+                                <input id="age-2" name="age-2" type="text" th:field="*{age}"
+                                       class="form-control required number">
+                                <small class="form-text text-muted">The warning step will show up if age is less than
+                                    25</small>
+                            </div>
+
+                            <div class="col-md-6">
+                                <label for="height">Height *</label>
+                                <input id="height" name="height" th:field="*{height}" type="text"
+                                       class="form-control">
+                                <div class="text-danger" th:if="${#fields.hasErrors('height')}" th:errors="*{height}">error</div>
+                            </div>
+                            <div class="text-danger" th:if="${#fields.hasErrors('height')}" th:errors="*{height}">error</div>
+
+                        </div>
+                    </div>
+                    <p>(*) Mandatory</p>
+                </fieldset>
+
+
+                <h3>Warning</h3>
+                <fieldset>
+                    <legend>You are too young</legend>
+
+                    <h4>We are sorry, please come back when you are 25.</h4>
+
+                </fieldset>
+
+                <h3>Finish</h3>
+                <fieldset>
+                    <legend>Terms and Conditions</legend>
+
+                    <p>You agreed to give consent to us to share your personal info and share your photos to our approval clients</p>
+                    <input id="acceptTerms-2" name="acceptTerms" th:field="*{termsAccepted}" type="checkbox"
+                           class="required">
+                    <label for="acceptTerms-2">I agree with the Terms and Conditions.</label>
+                </fieldset>
+            </form>
+
+        </div>
+          <div class="row">
+                 <a th:href="@{/home}">Back to Home</a>
+            </div>
+        </div>
+    </div>
+
+
+<script th:src="@{/webjars/jquery/jquery.min.js}"></script>
+<script th:src="@{/webjars/popper.js/umd/popper.min.js}"></script>
+<script th:src="@{/webjars/bootstrap/js/bootstrap.min.js}"></script>
+<script th:src="@{assets/jquery-steps/jquery.steps.min.js}"></script>
+<script th:src="@{assets/jquery-validate/jquery.validate.min.js}"></script>
+<script>
+    var form = $("#example-advanced-form").show();
+
+    form.steps({
+        headerTag: "h3",
+        bodyTag: "fieldset",
+        transitionEffect: "slideLeft",
+        onStepChanging: function (event, currentIndex, newIndex) {
+            // Always allow previous action even if the current form is not valid!
+            if (currentIndex > newIndex) {
+                return true;
+            }
+            // Forbid next action on "Warning" step if the user is to young
+            if (newIndex === 3 && Number($("#age-2").val()) < 25) {
+                return false;
+            }
+            // Needed in some cases if the user went back (clean up)
+            if (currentIndex < newIndex) {
+                // To remove error styles
+                form.find(".body:eq(" + newIndex + ") label.error").remove();
+                form.find(".body:eq(" + newIndex + ") .error").removeClass("error");
+            }
+            form.validate().settings.ignore = ":disabled,:hidden";
+            return form.valid();
+        },
+        onStepChanged: function (event, currentIndex, priorIndex) {
+            // Used to skip the "Warning" step if the user is old enough.
+            if (currentIndex === 2 && Number($("#age-2").val()) >= 25) {
+                form.steps("next");
+            }
+            // Used to skip the "Warning" step if the user is old enough and wants to the previous step.
+            if (currentIndex === 2 && priorIndex === 3) {
+                form.steps("previous");
+            }
+        },
+        onFinishing: function (event, currentIndex) {
+            form.validate().settings.ignore = ":disabled";
+            return form.valid();
+        },
+        onFinished: function (event, currentIndex) {
+            form.submit();
+        }
+    }).validate({
+        errorPlacement: function errorPlacement(error, element) {
+            element.before(error);
+        }
+        // rules: {
+        //     confirm: {
+        //         equalTo: "#password-2"
+        //     }
+        // }
+    });
+</script>
+<!--<div th:replace="fragments/footer :: footer"></div>-->
+</body>
+</html>

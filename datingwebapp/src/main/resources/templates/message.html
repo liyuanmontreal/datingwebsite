@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>test page</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+            rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+            crossorigin="anonymous">
+</head>
+<body>
+<div class = "container w-50">
+
+    <h2>leave message test page</h2>
+    <hr/>
+
+
+    <!--
+       <form id="form" th:action="@{/saveMessage}" th:object = "${message}" method = "POST">
+        <input type="text" th:field="*{content}" placeholder="Write a message...." class = "form-control col-3 mb-3" />
+        <span style ="color:red" th:if="${#fields.hasErrors('content')}" th:errors="*{message}"></span>
+
+
+        <input type="hidden" th:field = "*{message.sender.senderIp}" value="1"/>
+        <input type="hidden" th:field = "*{message.recpient.}" value="2"/>
+        <input type="text" th:field = "*{senderId}"/>
+        <input type="text" th:field = "*{recpientId}" />
+        <input type="hidden" th:field = "*{status}"/>
+        <button class = "btn btn-primary" type="submit">Send</button>
+        <input type="hidden" th:field = "*{id}"/>
+    </form>-->
+    <hr/>
+
+</div>
+</body>
+</html>
